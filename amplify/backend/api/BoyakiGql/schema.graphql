@@ -13,6 +13,7 @@ type Post
         operations: [read, create, delete]
       }
       { allow: private, provider: userPools, operations: [read] }
+      { allow: private, provider: iam, operations: [create] }
     ]
   )
   @key(
@@ -50,6 +51,7 @@ type FollowRelationship
         operations: [read, create, delete]
       }
       { allow: private, provider: userPools, operations: [read] }
+      { allow: private, provider: iam, operations: [read] }
     ]
   )
   @key(fields: ["followeeId", "followerId"]) {

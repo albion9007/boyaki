@@ -1,6 +1,5 @@
 import React from "react";
-// import Amplify from "aws-amplify";
-import { Amplify, Auth } from "aws-amplify";
+import Amplify from "aws-amplify";
 import { AmplifyAuthenticator, AmplifySignUp } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 import awsconfig from "./aws-exports";
@@ -16,6 +15,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 import AllPosts from "./containers/AllPosts";
 import PostsBySpecifiedUser from "./containers/PostsBySpecifiedUser";
+import Timeline from "./containers/Timeline";
 
 Amplify.configure(awsconfig);
 
@@ -74,11 +74,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const App = () => {
-  async function getJWTtoken() {
-    const session = await Auth.currentSession();
-    console.log(session.getAccessToken().getJwtToken());
-  }
-
   const [authState, setAuthState] = React.useState();
   const [user, setUser] = React.useState();
 
@@ -97,7 +92,7 @@ const App = () => {
         <CssBaseline />
         <HashRouter>
           <Switch>
-            <Route exact path="/" component={AllPosts} />
+            <Route exact path="/" component={Timeline} />
             <Route exact path="/global-timeline" component={AllPosts} />
             <Route exact path="/:userId" component={PostsBySpecifiedUser} />
             <Redirect path="*" to="/" />
